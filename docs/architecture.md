@@ -28,22 +28,18 @@ OctoFit Tracker is a three-tier application for a school fitness program. The st
 
 ## Implementation decisions
 
-Record your plan here before editing code.
-
-- Presentation tier decision:
-- Logic tier decision:
-- Data tier decision:
-- Activity tracking approach:
-- Team management approach:
-- Leaderboard approach:
-- Workout suggestions approach:
+- Presentation tier: Keep API access in the shared client and have each route component render loading, error, empty, and success states.
+- Logic tier: Keep validation and business behavior in explicit service functions; routes translate successful results to response payloads and forward errors to the shared handler.
+- Data tier: Enforce required fields and basic value constraints in Mongoose schemas; use idempotent seed upserts that preserve unrelated records.
+- Activity tracking: Validate IDs and input in the service, confirm referenced user and team exist, and store points derived from minutes with the occurrence time.
+- Team management: Validate the name, mascot, and member IDs in the service, then persist the team through the model.
+- Leaderboard: Aggregate activity points by team in the service, order totals descending, and assign 1-based ranks.
+- Workout suggestions: Find the requested user, use their goal or recent activity to prioritize matching workouts, and return a reason with each suggestion; return 404 for an unknown email.
 
 ## Test plan
 
-Record the commands you run and what each failure means.
-
-- Data-tier command: `npm run test:data --prefix octofit-tracker/backend`
-- API command: `npm run test:api --prefix octofit-tracker/backend`
-- Frontend command: `npm test --prefix octofit-tracker/frontend`
-- Backend build command: `npm run build --prefix octofit-tracker/backend`
-- Frontend build command: `npm run build --prefix octofit-tracker/frontend`
+- Data tier: `npm run test:data --prefix octofit-tracker/backend` — Initial run failed four required-field schema checks; the seed/idempotency test passed. The post-schema-change rerun was skipped, so this suite remains unverified. Failures indicate model validation or seed safety/idempotency regressions.
+- API: `npm run test:api --prefix octofit-tracker/backend` — Passed (4 tests). Failures indicate incorrect service behavior, response status/payloads, ranking, or workout recommendations.
+- Frontend: `npm test --prefix octofit-tracker/frontend` — Passed (15 tests). Failures indicate missing API-backed rendering or loading, empty, and error states.
+- Backend build: `npm run build --prefix octofit-tracker/backend` — Passed. Failures indicate backend TypeScript or compilation errors.
+- Frontend build: `npm run build --prefix octofit-tracker/frontend` — Passed. Failures indicate frontend type-checking or production-bundle errors.
