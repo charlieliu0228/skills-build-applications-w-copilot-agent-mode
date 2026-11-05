@@ -28,13 +28,13 @@ OctoFit Tracker is a three-tier application for a school fitness program. The st
 
 ## Implementation decisions
 
-- Presentation tier: Keep API access in the shared client and have each route component render loading, error, empty, and success states.
-- Logic tier: Keep validation and business behavior in explicit service functions; routes translate successful results to response payloads and forward errors to the shared handler.
-- Data tier: Enforce required fields and basic value constraints in Mongoose schemas; use idempotent seed upserts that preserve unrelated records.
-- Activity tracking: Validate IDs and input in the service, confirm referenced user and team exist, and store points derived from minutes with the occurrence time.
-- Team management: Validate the name, mascot, and member IDs in the service, then persist the team through the model.
-- Leaderboard: Aggregate activity points by team in the service, order totals descending, and assign 1-based ranks.
-- Workout suggestions: Find the requested user, use their goal or recent activity to prioritize matching workouts, and return a reason with each suggestion; return 404 for an unknown email.
+- Presentation tier decision: Keep API access in the shared client and have each route component render loading, error, empty, and success states.
+- Logic tier decision: Keep validation and business behavior in explicit service functions; routes translate successful results to response payloads and forward errors to the shared handler.
+- Data tier decision: Enforce required fields and basic value constraints in Mongoose schemas; use idempotent seed upserts that preserve unrelated records.
+- Activity tracking approach: Validate IDs and input in the service, confirm referenced user and team exist, and store points derived from minutes with the occurrence time.
+- Team management approach: Validate the name, mascot, and member IDs in the service, then persist the team through the model.
+- Leaderboard approach: Aggregate activity points by team in the service, order totals descending, and assign 1-based ranks.
+- Workout suggestions approach: Find the requested user, use their goal or recent activity to prioritize matching workouts, and return a reason with each suggestion; return 404 for an unknown email.
 
 ## Test plan
 
