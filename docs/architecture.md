@@ -38,7 +38,7 @@ OctoFit Tracker is a three-tier application for a school fitness program. The st
 
 ## Test plan
 
-- Data tier: `npm run test:data --prefix octofit-tracker/backend` — Initial run failed four required-field schema checks; the seed/idempotency test passed. The post-schema-change rerun was skipped, so this suite remains unverified. Failures indicate model validation or seed safety/idempotency regressions.
+- Data tier: `npm run test:data --prefix octofit-tracker/backend` — Passed (5 tests), including required-field validation and seed idempotency/data preservation. Failures indicate model validation or seed safety/idempotency regressions.
 - API: `npm run test:api --prefix octofit-tracker/backend` — Passed (4 tests). Failures indicate incorrect service behavior, response status/payloads, ranking, or workout recommendations.
 - Frontend: `npm test --prefix octofit-tracker/frontend` — Passed (15 tests). Failures indicate missing API-backed rendering or loading, empty, and error states.
 - Backend build: `npm run build --prefix octofit-tracker/backend` — Passed. Failures indicate backend TypeScript or compilation errors.
